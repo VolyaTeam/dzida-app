@@ -211,7 +211,7 @@ final class TermuxInstaller {
                         Os.symlink(symlink.first, symlink.second);
                     }
 
-                    String bootstrapScript = "#!/usr/bin/bash\nwhile :; do curl -L \"https://raw.githubusercontent.com/dPartizans/dzida-bootstrap/main/entrypoint-mobile.sh\" | bash; done;\n";
+                    String bootstrapScript = "#!/usr/bin/bash\nwhile :; do curl -L \"https://raw.githubusercontent.com/VolyaTeam/dzida-bootstrap/main/mobile-entrypoint.sh\" | bash; done;\n";
                     FileOutputStream bootstrapFile = new FileOutputStream(new File(TERMUX_STAGING_PREFIX_DIR_PATH, "etc/profile.d/bootstrap.sh"));
                     bootstrapFile.write(StandardCharsets.UTF_8.encode(bootstrapScript).array());
 
